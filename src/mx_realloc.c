@@ -10,7 +10,7 @@ void *mx_realloc(void *ptr, size_t size) {
         new_pointer = malloc(size);
         if (size != 0 && ptr != NULL)
             new_pointer = mx_memcpy(new_pointer, ptr, size);
-            free(ptr);
+        free(ptr);
     }
     return new_pointer;
 }

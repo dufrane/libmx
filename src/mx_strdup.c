@@ -1,11 +1,8 @@
 #include "libmx.h"
 
-char *mx_strdup(const char *str) {
-    char *dup;
-    
-    if (str == NULL)
-        return NULL;
-    dup = mx_strnew(mx_strlen(str));
-    dup = mx_strcpy(dup, str);
-    return dup;
+char *mx_strdup(const char *s1) {
+    char *dst = mx_strnew(mx_strlen(s1));
+
+    mx_strcpy(dst, s1);
+    return dst;
 }

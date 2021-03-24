@@ -1,48 +1,5 @@
 #include "libmx.h"
 
-
-int mx_s_strlen(const char *s); 
-
-static void mx_write(char **lineptr, char *buf); 
-
-static int mx_remembered_part(char **lineptr, char *readed,
-                              r_line *l); 
-
-static char *mx_read(char **lineptr, char *readed,
-                     size_t buf_size, r_line *l); 
-
-static r_line *struct_creator(size_t buf_size, char delim, const int fd); 
-
-int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
-    r_line *l = struct_creator(buf_size, delim, fd);
-    static char *readed;
-    int result;
-
-    if (readed != NULL && mx_s_strlen(readed) == 0)
-        mx_strdel(&readed);
-    l->fd < 0 ? (l->index = -2, l->flag = 1) : l->index;
-    if (readed != NULL && mx_strlen(readed) > 0)
-        l->index = mx_remembered_part(lineptr, readed, l);
-    if (l->flag == 0)
-        readed = mx_read(lineptr, NULL, buf_size, l);
-    result = l->index > l->sum ? l->sum : l->index;
-    if (result == -1)
-        mx_strdel(&readed);
-    free(l->buf);
-    free(l);
-    return result;
-}
-
-
-int mx_s_strlen(const char *s) {
-    int i = 0;
-
-    if (s)
-        while (s[i] != '\0')
-            i++;
-    return i;
-}
-
 static void mx_write(char **lineptr, char *buf) {
     *lineptr = mx_realloc(*lineptr,
                           mx_s_strlen(*lineptr) + mx_s_strlen(buf));
@@ -108,4 +65,24 @@ static r_line *struct_creator(size_t buf_size, char delim, const int fd) {
     l->fd = fd;
     l->delim = delim;
     return l;
+}
+
+int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
+    r_line *l = struct_creator(buf_size, delim, fd);
+    static char *readed;
+    int result;
+
+    if (readed != NULL && mx_s_strlen(readed) == 0)
+        mx_strdel(&readed);
+    l->fd < 0 ? (l->index = -2, l->flag = 1) : l->index;
+    if (readed != NULL && mx_strlen(readed) > 0)
+        l->index = mx_remembered_part(lineptr, readed, l);
+    if (l->flag == 0)
+        readed = mx_read(lineptr, NULL, buf_size, l);
+    result = l->index > l->sum ? l->sum : l->index;
+    if (result == -1)
+        mx_strdel(&readed);
+    free(l->buf);
+    free(l);
+    return result;
 }

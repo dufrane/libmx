@@ -1,33 +1,22 @@
 #include "libmx.h"
 
-static int num_len(unsigned long num);
-
 char *mx_nbr_to_hex(unsigned long nbr) {
     char *hex = NULL;
-    unsigned long clone = nbr;
-    int length = num_len(nbr);
-    int temp;
+    int len = 0;
+    int tmp; 
 
-    hex = malloc(length);
-    if (nbr == 0)
-        return mx_strcpy(hex, "0");
-    while (clone) {
-        temp = clone % 16;
-        if (temp < 10)
-            hex[--length] = 48 + temp;
-        if (temp >= 10)
-            hex[--length] = 87 + temp;
-        clone /= 16;
+    if (nbr == 0) {
+        hex = mx_strnew(1);
+        hex[0] = '0';
+        return hex;
+    }
+    for (tmp = nbr ; tmp != 0; len++)
+        tmp /= 16;
+    hex = mx_strnew(len);
+    while (nbr) {
+        tmp = nbr % 16;
+        tmp < 10 ? (hex[--len] = 48 + tmp) : (hex[--len] = 87 + tmp);
+        nbr /= 16;
     }
     return hex;
-}
-
-static int num_len(unsigned long num) {
-    int length = 0;
-
-    while (num) {
-        num /= 16;
-        length++;
-    }
-    return length;
 }

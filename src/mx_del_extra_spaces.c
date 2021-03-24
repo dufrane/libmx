@@ -22,4 +22,3 @@ char *mx_del_extra_spaces(const char *str) {
     mx_strdel(&tmp);
     return cleared;
 }
-

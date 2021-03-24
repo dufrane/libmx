@@ -1,7 +1,7 @@
 #include "libmx.h"
 
-int mx_atoi(const char *str) {
-    unsigned long long int n = 0;
+long mx_atol(const char *str) {
+    unsigned long n = 0;
     int i = 0;
     int ch = 1;
 
@@ -11,7 +11,7 @@ int mx_atoi(const char *str) {
             ch = -1;
         i++;
     }
-    for( ; mx_isdigit(str[i]); i++) {
+    for ( ; mx_isdigit(str[i]); i++) {
         if (ch == -1 && ((n > -(LONG_MIN / 10)) || ((n == -(LONG_MIN / 10)) 
             && (str[i] - 48 > -(LONG_MIN % 10)))))
             return 0;
