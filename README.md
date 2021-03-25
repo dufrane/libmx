@@ -1,4 +1,11 @@
-<h3 p align="center">  :file_folder: lib_mx - is a library of functions in my vision, that was written by myself to understan how standard library functions works under the hood </p>
+<p align="center">
+    <h1 align="center">lib_mx</h1>
+    <br>
+</p>
+
+
+<p align="center">  :file_folder: lib_mx - is a library of functions in my vision, that was written by myself to understan how standard library functions works under the hood </p>
+
 
 #  
 
