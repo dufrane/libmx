@@ -4,7 +4,7 @@
 
 Skills: C, Git, makefile, unix, critical thinking, problem polving, analysis, creativity, responsibility, time-management
 
-# To bild:
+# To start:
 - clone the repo
 - go to the root dir
 - run make
